@@ -1,0 +1,56 @@
+#include <iostream>
+using namespace std;
+#include <string>
+
+string XoaPhanTu(string str,int i) {//true
+	for (; i < str.size()-1; i++) {
+		str[i] = str[i + 1];
+	}
+	str[str.size()-1] = NULL;
+	return str;
+}
+
+string BienDoiTu(string str,int &i) {//true
+	if (str[i] >='a')
+		str[i] -= 32;
+	i++;
+	for (; i != str.size() && str[i] != ' '; i++) {
+		if (str[i] <= 'Z')
+			str[i] += 32;
+	}
+	i--;
+	return str;
+}
+
+string ChuanHoa(string str) {
+	// Use for to scan the array
+	//Trước tiên phải thực hiện kí tự đầu tiên của từ là In hoa,
+	//Các chữ còn lại là chữ thường
+	for (int i = 0; i < str.size(); i++) {
+		if (str[i] != ' ')
+			str= BienDoiTu(str, i);
+	}
+	for (int i = 0; i < str.size(); i++) {
+		if (str[i] == ' ' && str[i + 1] == ' ') {
+			str = XoaPhanTu(str, i + 1);
+			i--;
+		}
+	}
+	return str;
+}
+
+
+
+int main() {
+	cout << "--------------Chuong trinh chuan hoa van ban--------------" << endl;
+	string a;
+	cout << "Nhap vao 1 doan ki tu bat ki: ";
+	getline(cin, a);
+	cout << "Doan vua nhap la: " << a << endl;
+
+	/*a=XoaPhanTu(a, n ,0);
+	cout << "\nTest xoa phan tu dau tien: " << a << endl;*/
+	a = ChuanHoa(a);
+	cout << "Chuoi sau khi chuan hoa la: " << a << endl;
+	system("pause");
+}
